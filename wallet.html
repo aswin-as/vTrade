@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+          integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+          crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/cf5c71a3b3.js" crossorigin="anonymous"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+        :root {
+            --primary-bg: #C7CDDB;
+            --secondary-bg: #BAC2D1;
+            --app-primary-bg: #383A48;
+            --box-shadow: rgba(0, 0, 0, 0.25);
+            --text: #CCDAE5;
+            --break-tiny: 300px;
+            --break-small: 500px;
+            --break-med: 600px;
+            --break-large: 1000px;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--primary-bg);
+            background-size: cover;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Open Sans", "Roboto", "Ubuntu", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        ::selection {
+            color: white;
+            background: rgba(170, 170, 170, 0.6);
+        }
+
+        #triangle {
+            display: none;
+        }
+
+        #app {
+            color: var(--text);
+            background: var(--app-primary-bg);
+            position: relative;
+            border-radius: 15px;
+            z-index: 5;
+            width: 320px;
+            height: 490px;
+            overflow: hidden;
+            box-shadow: 0px 10px 29px 10px var(--box-shadow);
+            margin-top: 20px;
+        }
+
+        @media (max-width: var(--break-small)) {
+            #app {
+                width: 250px;
+                height: 420px;
+            }
+        }
+
+        @media (max-height: 430px) {
+            #app {
+                width: 230px;
+                height: 390px;
+            }
+        }
+
+        .secondary {
+            color: transparentize(var(--text), 0.3);
+        }
+
+        .tertiary {
+            color: transparentize(var(--text), 0.5);
+        }
+
+        #title {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #title h4 {
+            margin: 15px 0 10px 15px;
+        }
+
+        .btc-heading {
+            margin: 0px 10px;
+        }
+
+        #balance {
+            margin-left: 25px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        @media (max-width: var(--break-small)) {
+            #balance {
+                font-size: 25px;
+                margin: 0px 20px;
+            }
+        }
+
+        @media (max-height: 430px) {
+            #balance {
+                font-size: 20px;
+                margin: 0 15px;
+            }
+        }
+
+        .clickable {
+            transition: 0.2s;
+        }
+
+        .clickable:active {
+            color: transparentize(var(--text), 0.15);
+            transform: scale(0.9);
+        }
+
+        .clickable:hover {
+            cursor: pointer;
+        }
+
+        i {
+            @media (max-height: 430px) {
+                font-size: 25px !important;
+            }
+        }
+
+        #menu {
+            position: absolute;
+            right: 15px;
+            top: 8px;
+        }
+
+        #menu > i {
+            margin: 28px 0px 10px 20px;
+            @media (max-width: var(--break-small)) {
+                margin: 35px -6px 0px 15px;
+            }
+        }
+
+        #wallet-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 80%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background: lighten(var(--app-primary-bg), 5%);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0px 0px 5px 1px var(--box-shadow);
+        }
+
+        #coin-list {
+            list-style: none;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 20%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list-item {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 15px;
+            align-items: center;
+            transition: 0.3s;
+            margin: 15px 10px 0 10px;
+            background: lighten(var(--app-primary-bg), 12%);
+            padding: 10px;
+        }
+
+        @media (max-width: var(--break-small)) {
+            .list-item {
+                margin: 15px 5px 0 5px;
+            }
+        }
+
+        .list-item:hover {
+            cursor: pointer;
+        }
+
+        @media (max-height: 430px) {
+            .list-item {
+                margin: 25px 5px 0px 0px;
+                font-size: 15px;
+            }
+        }
+
+        .selected-coin {
+            background: linear-gradient(to top left, lighten(var(--app-primary-bg), 2%), lighten(var(--app-primary-bg), 15%));
+            padding: 15px;
+            box-shadow: 0px 0px 10px 4px var(--box-shadow);
+        }
+
+        @media (max-width: var(--break-small)) {
+            .selected-coin {
+                padding: 10px;
+            }
+        }
+
+        @media (max-height: 430px) {
+            .selected-coin {
+                padding: 10px;
+            }
+        }
+
+        .coin-name {
+            margin: 0 0 0 0;
+        }
+
+        #eth-card {
+            width: 85%;
+            height: 65%;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: content-box;
+            overflow-y: auto;
+            background: lighten(var(--app-primary-bg), 8%);
+            background: -webkit-radial-gradient(top, lighten(var(--app-primary-bg), 15%), lighten(var(--app-primary-bg), 5%));
+            background: radial-gradient(top, lighten(var(--app-primary-bg), 15%), lighten(var(--app-primary-bg), 5%));
+            background: -moz-radial-gradient(top, lighten(var(--app-primary-bg), 15%), lighten(var(--app-primary-bg), 5%));
+            box-shadow: 0px 0px 10px 4px var(--box-shadow);
+            margin: 25px 0 0 0;
+        }
+
+        #eth-chart {
+            margin-top: 15px;
+            width: 100%;
+            height: 30%;
+            background: url("https://cryptohistory.org/charts/sparkline/eth-usd/7d/svg?lineColor=9DA8B5&markerColor=585D7B");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        #eth-info {
+            margin-left: 10px;
+            position: relative;
+            align-items: center;
+        }
+
+        #eth-info > h4 {
+            margin: 0;
+        }
+
+        #eth-info > #right {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            text-align: right;
+        }
+
+        .amount {
+            font-size: 20px;
+            margin: 5px 0 0 5px;
+        }
+
+        @media (max-width: var(--break-small)) {
+            .amount {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-height: 430px) {
+            .amount {
+                font-size: 16px;
+            }
+        }
+
+        #profit {
+            color: #7bba6f;
+        }
+
+        #currency-name {
+            font-weight: 400;
+        }
+
+        .coin-value {
+            margin: 5px 0 3px 5px;
+        }
+
+        #transaction-icons {
+            display: flex;
+            margin-top: 15px;
+            @media (max-width: var(--break-small)) {
+                margin-top: 7px;
+            }
+            justify-content: center;
+            align-items: center;
+        }
+
+        #transaction-icons > i {
+            margin: 0 5px 0 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="title">
+        <h4 class="tertiary">Your wallet</h4>
+        <div id="balance">
+            <i class="fa-solid fa-indian-rupee-sign - clickable"></i>
+            <!-- <i class="fa-solid fa-indian-rupee-sign- clickable" title="BTC/USD"></i> -->
+            <h3 class="btc-heading" title="Wallet value">1203</h3>
+        </div>
+    </div>
+    <div id="menu">
+        <i class="fas fa-chart-line fa-2x secondary clickable" title="Wallet Value Chart"></i>
+        <i class="fas fa-user-circle fa-2x secondary clickable" title="Your Account"></i>
+    </div>
+    <div id="wallet-container">
+        <ul id="coin-list">
+            <li class="list-item">
+                <svg width="25" height="25" viewBox="-2 -2 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <!-- SVG content for Bitcoin -->
+                </svg>
+                <h5 class="coin-name">Forex </h5>
+            </li>
+            <li class="list-item selected-coin">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
+                    <!-- SVG content for Ethereum -->
+                </svg>
+                <h5 class="coin-name"> Stocks </h5>
+            </li>
+            <li class="list-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="-2 -2 40 40">
+                    <!-- SVG content for Litecoin -->
+                </svg>
+                <h5 class="coin-name">Assest </h5>
+            </li>
+        </ul>
+        <div id="eth-card">
+            <div id="eth-chart" title="ETH/USD 7 day chart"></div>
+            <div id="eth-info">
+                <div id="left">
+                    <h4 class="tertiary">Total</h4>
+                    <p class="amount">11493 <span id="currency-name" class="secondary">stocks</span></p>
+                    <p class="coin-value">982.40 <span id="currency-name" class="secondary">Forex</span></p>
+                    <p class="coin-value">10038 <span id="currency-name" class="secondary">Assests</span></p>
+                </div>
+                <div id="right">
+                    <h4 class="tertiary">Profit/Loss</h4>
+                    <p id="profit" class="amount">138.05 <span id="currency-name" class="secondary">INR</span></p>
+                    <div id="transaction-icons">
+                        <i class="far fa-list-alt fa-2x secondary clickable" title="Transaction History"></i>
+                        <i class="far fa-plus-square fa-2x secondary clickable" title="Add/Edit Transaction"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

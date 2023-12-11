@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management Hub</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #61dafb;
+        }
+
+        .plan {
+            background-color: #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: #61dafb;
+            color: #1e1e1e;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4fa3d1;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .plan {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Asset Management Hub</h1>
+
+    <h2>Choose a Plan</h2>
+
+    <!-- 5 Years Plan -->
+    <div class="plan">
+        <h3>5 Years</h3>
+        <p>Details about the 5-year plan and benefits go here.</p>
+        <button onclick="invest(5)">Invest Now</button>
+    </div>
+
+    <!-- 10 Years Plan -->
+    <div class="plan">
+        <h3>10 Years</h3>
+        <p>Details about the 10-year plan and benefits go here.</p>
+        <button onclick="invest(10)">Invest Now</button>
+    </div>
+
+    <!-- 15 Years Plan -->
+    <div class="plan">
+        <h3>15 Years</h3>
+        <p>Details about the 15-year plan and benefits go here.</p>
+        <button onclick="invest(15)">Invest Now</button>
+    </div>
+
+    <!-- General Invest Button -->
+    <button onclick="generalInvest()">Invest</button>
+
+    <script>
+        function invest(duration) {
+            // Add logic to handle specific plan investment
+            alert(`Investing in the ${duration}-year plan!`);
+        }
+
+        function generalInvest() {
+            // Add logic for general investment
+            alert("Investing with a custom duration!");
+        }
+    </script>
+
+</body>
+</html>
